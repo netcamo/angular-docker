@@ -20,6 +20,8 @@ FROM nginx:alpine AS final
 # Remove existing files in the destination
 RUN rm -rf /usr/share/nginx/html/*
 
+# Copy the Nginx configuration from the build stage
+COPY --from=build /app/nginx.conf /etc/nginx/
 # Copy the built artifacts from the build stage to the Nginx public directory
 COPY --from=build /app/dist/my-app/browser/ /usr/share/nginx/html
 
