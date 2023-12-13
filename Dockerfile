@@ -16,7 +16,7 @@ RUN npx ng build --configuration production
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS final
-
+ENV NGINX_PORT=8080
 # Remove existing files in the destination
 RUN rm -rf /usr/share/nginx/html/*
 
@@ -25,8 +25,8 @@ COPY --from=build /app/nginx.conf /etc/nginx/
 # Copy the built artifacts from the build stage to the Nginx public directory
 COPY --from=build /app/dist/my-app/browser/ /usr/share/nginx/html
 
-# Expose port 8080 for the Nginx server
-EXPOSE 8080
+# Expose port NGINX_PORT for the Nginx server
+EXPOSE $NGINX_PORT
 
 # The default command to start Nginx and serve the application
 CMD ["nginx", "-g", "daemon off;"]
