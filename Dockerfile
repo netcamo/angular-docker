@@ -31,4 +31,6 @@ EXPOSE $NGINX_PORT
 # Copy the Nginx configuration template from the build stage
 COPY --from=build /app/nginx.conf.template /etc/nginx/templates/
 # The default command to start Nginx and serve the application
-CMD /bin/bash -c "envsubst '$$NGINX_PORT' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+COPY start-nginx.sh /start-nginx.sh
+CMD ["/start-nginx.sh"]
+
