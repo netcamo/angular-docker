@@ -32,5 +32,7 @@ EXPOSE $NGINX_PORT
 COPY --from=build /app/nginx.conf.template /etc/nginx/templates/
 # The default command to start Nginx and serve the application
 COPY start-nginx.sh /start-nginx.sh
+RUN chmod +x /start-nginx.sh
+
 CMD ["/start-nginx.sh"]
 
