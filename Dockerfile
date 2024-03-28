@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application
-FROM node:20.10.0 AS build
+FROM node:20.12.0 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
