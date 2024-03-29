@@ -1,3 +1,4 @@
 export const environment = {
-    production: true
+    production: true,
+    apiUrl: 'https://usigninapis-73ry6xcm2q-el.a.run.app'
   };
