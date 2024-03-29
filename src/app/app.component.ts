@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  constructor() {
+    console.log(environment.production); // Logs false for development environment
+  }
   title = 'myAppy2';
 }
