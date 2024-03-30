@@ -2,7 +2,7 @@
     <img src='/assets/loading.svg'>
 </div>
 <div class="container" *ngIf="!isLoading && prefferedLanguageIsoCodes.length !== 0" cdkDropList (cdkDropListDropped)="drop($event)">
-    <p>Sort and add the Languages you can read, in order of preference:</p>
+    <p>Sort and add the languages you can read, in order of preference:</p>
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
         <span>{{ allLanguages[isoCode]?.displayName || isoCode }}</span>
         <div>

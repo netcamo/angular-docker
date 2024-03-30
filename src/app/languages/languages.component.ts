@@ -47,16 +47,12 @@ export class LanguagesComponent {
               break;
             }
           }
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 500);
+          this.isLoading = false;
           
         },
         error: err => {
           console.error(err);
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 500);
+          this.isLoading = false;
         }
       });
   }
