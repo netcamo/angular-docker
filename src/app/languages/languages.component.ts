@@ -4,7 +4,6 @@ import { DeviceSettingsService } from '../settings/device-settings.service';
 import { LanguageService } from './language.service';
 import { Languages } from './language.model';
 import { CommonModule } from '@angular/common';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-languages',

@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:32768'
+    apiUrl: 'https://usigninapis-73ry6xcm2q-el.a.run.app'
   };
