@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-loading',
   standalone: true,
   imports: [],
-  templateUrl: './loading.component.html',
+  template: `<img src='/assets/loading.svg'>`,
   styleUrl: './loading.component.css'
 })
 export class LoadingComponent {
