@@ -1,23 +1,19 @@
-<div [hidden]="prefferedLanguageIsoCodes.length === 0" cdkDropList (cdkDropListDropped)="drop($event)">
+<div class="container" [hidden]="prefferedLanguageIsoCodes.length === 0" cdkDropList (cdkDropListDropped)="drop($event)">
     <p>Languages I know</p>
-    <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag>
-        {{ allLanguages[isoCode]?.displayName || isoCode }}
-        <button [hidden]="first" (click)="moveLanguage(isoCode, i - 1)">Move Up</button>
-        <button [hidden]="last" (click)="moveLanguage(isoCode, i + 1)">Move Down</button>
-        <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)">Delete</button>
+    <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
+        <span>{{ allLanguages[isoCode]?.displayName || isoCode }}</span>
+        <div>
+            <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)">Delete</button>
+        </div>
+    </div>
+    <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
+        <p>Do you know any more languages?</p>
+        <select #selectedLanguage>
+            <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
+                [value]="isoCode">
+            {{ allLanguages[isoCode]?.displayName || isoCode }}
+            </option>
+        </select>
+        <button (click)="addLanguage(selectedLanguage.value)">Add</button>
     </div>
 </div>
-
-
-<div [hidden]="languageIsoCodesNotInPreferred.length === 0">
-    <p>Add a language</p>
-    <select #selectedLanguage>
-        <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
-            [value]="isoCode">
-        {{ allLanguages[isoCode]?.displayName || isoCode }}
-    </option>
-    </select>
-    <button (click)="addLanguage(selectedLanguage.value)">Add Language</button>
-</div>
-
-

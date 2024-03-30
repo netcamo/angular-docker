@@ -73,17 +73,6 @@ export class LanguagesComponent {
     return remainingLanguageIsoCodes.every(languageIsoCode => !this.allLanguages[languageIsoCode]?.isSupported);
   }
 
-  moveLanguage(isoCode: string, newIndex: number) {
-    const oldIndex = this.prefferedLanguageIsoCodes.indexOf(isoCode);
-    if (oldIndex > -1) {
-      // Remove the language from the old position
-      this.prefferedLanguageIsoCodes.splice(oldIndex, 1);
-      // Insert the language at the new position
-      this.prefferedLanguageIsoCodes.splice(newIndex, 0, isoCode);
-      this.savePrefferedLanguageIsoCodes();
-    }
-  }
-
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.prefferedLanguageIsoCodes, event.previousIndex, event.currentIndex);
     this.savePrefferedLanguageIsoCodes();

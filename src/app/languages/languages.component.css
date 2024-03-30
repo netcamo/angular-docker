@@ -1,0 +1,76 @@
+/* languages.component.css */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.draggable-item {
+    flex-basis: 100%; /* Make the draggable items take the full width of the container */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: move; /* Change the cursor to indicate draggable */
+}
+
+.draggable-item:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2); /* Add a shadow when hovering */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+
+
+p {
+    font-size: 18px;
+    color: #333;
+}
+
+button {
+    margin: 0 5px; /* Add horizontal margin to buttons */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+select {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+
+.add-language {
+    width: 50%; /* Adjust as needed */
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: auto; /* Push the add-language div to the right */
+}
