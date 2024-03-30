@@ -19,7 +19,6 @@ export class DeviceSettingsService {
   }
 
   savePrefferedLanguageIsoCodes(languages: string[]): void {
-    console.log(languages);
     const settings = this.getSettings();
 
     settings.languages = languages;

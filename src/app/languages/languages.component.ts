@@ -3,16 +3,19 @@ import { Router } from '@angular/router';
 import { DeviceSettingsService } from '../settings/device-settings.service';
 import { LanguageService } from './language.service';
 import { Languages } from './language.model';
+import { CommonModule } from '@angular/common';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-languages',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './languages.component.html',
   styleUrl: './languages.component.css'
 })
 export class LanguagesComponent {
   prefferedLanguageIsoCodes: string[];
+  prefferedLanguageIsoCode: string;
   allLanguages: Languages;
 
   constructor(
@@ -23,7 +26,8 @@ export class LanguagesComponent {
     {
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
       this.allLanguages = {};
-      this.languageService.getLanguages(this.prefferedLanguageIsoCodes.length == 0 ? "" : this.prefferedLanguageIsoCodes[0]).subscribe({
+      this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
+      this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
         next: response => {
           this.allLanguages = response; // Store the response here
           
@@ -33,7 +37,7 @@ export class LanguagesComponent {
             if (this.allLanguages[isoCode].isSelected && !this.prefferedLanguageIsoCodes.includes(isoCode)) {
               // Add the ISO code to the beginning of the prefferedLanguageIsoCodes array
               this.prefferedLanguageIsoCodes.unshift(isoCode);
-              this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+              this.savePrefferedLanguageIsoCodes();
               break;
             }
           }
@@ -48,7 +52,7 @@ export class LanguagesComponent {
     // Only add the language if it's not already in the array
     if (isoCode && !this.prefferedLanguageIsoCodes.includes(isoCode)) {
       this.prefferedLanguageIsoCodes.push(isoCode);
-      this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+      this.savePrefferedLanguageIsoCodes();
     }
   }
 
@@ -56,8 +60,13 @@ export class LanguagesComponent {
     // Only add the language if it's not already in the array
     if (isoCode && this.prefferedLanguageIsoCodes.includes(isoCode)) {
       this.prefferedLanguageIsoCodes = this.prefferedLanguageIsoCodes.filter(item => item !== isoCode);
-      this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+      this.savePrefferedLanguageIsoCodes();
     }
+  }
+
+  hideFromDeletion(isoCode: string): boolean {
+    var remainingLanguageIsoCodes = this.prefferedLanguageIsoCodes.filter(item => item !== isoCode);
+    return remainingLanguageIsoCodes.every(languageIsoCode => !this.allLanguages[languageIsoCode]?.isSupported);
   }
 
   moveLanguage(isoCode: string, newIndex: number) {
@@ -67,16 +76,30 @@ export class LanguagesComponent {
       this.prefferedLanguageIsoCodes.splice(oldIndex, 1);
       // Insert the language at the new position
       this.prefferedLanguageIsoCodes.splice(newIndex, 0, isoCode);
-      this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+      this.savePrefferedLanguageIsoCodes();
     }
   }
+  
 
   get languageIsoCodesNotInPreferred(): string[] {
-    var x = Object.keys(this.allLanguages).filter(
+    return Object.keys(this.allLanguages).filter(
       isoCode => !this.prefferedLanguageIsoCodes.includes(isoCode)
     );
-    console.log(x);
-    return x;
   }
   
+  savePrefferedLanguageIsoCodes(): void {
+    this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+    if(this.prefferedLanguageIsoCode !== this.prefferedLanguageIsoCodes[0])
+    {
+      this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0]
+      this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
+        next: response => {
+          this.allLanguages = response; // Store the response here
+        },
+        error: err => {
+          console.error(err);
+        }
+      });
+    }
+  }
 }

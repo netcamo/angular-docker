@@ -1,23 +1,23 @@
-<p>Languages I know</p>
-@for(isoCode of prefferedLanguageIsoCodes; track isoCode;let idx = $index)
-{
-    <div>
+<div [hidden]="prefferedLanguageIsoCodes.length === 0">
+    <p>Languages I know</p>
+    <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last">
         {{ allLanguages[isoCode]?.displayName || isoCode }}
-        <button (click)="moveLanguage(isoCode, idx - 1)">Move Up</button>
-        <button (click)="moveLanguage(isoCode, idx + 1)">Move Down</button>
-        <button (click)="deleteLanguage(isoCode)">Delete</button>
+        <button [hidden]="first" (click)="moveLanguage(isoCode, i - 1)">Move Up</button>
+        <button [hidden]="last" (click)="moveLanguage(isoCode, i + 1)">Move Down</button>
+        <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)">Delete</button>
     </div>
-}  
+</div>
 
-<p>Add a language</p>
-<select #selectedLanguage>
-    @for(isoCode of languageIsoCodesNotInPreferred; track isoCode)
-    {
-        <div>
-            {{ allLanguages[isoCode]?.displayName || isoCode }}
-        </div>
-    }  
-</select>
-<button (click)="addLanguage(selectedLanguage.value)">Add Language</button>
+
+<div [hidden]="languageIsoCodesNotInPreferred.length === 0">
+    <p>Add a language</p>
+    <select #selectedLanguage>
+        <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
+            [value]="isoCode">
+        {{ allLanguages[isoCode]?.displayName || isoCode }}
+    </option>
+    </select>
+    <button (click)="addLanguage(selectedLanguage.value)">Add Language</button>
+</div>
 
 
