@@ -18,6 +18,7 @@ import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-
   styleUrl: './languages.component.css'
 })
 export class LanguagesComponent {
+  isLoading: boolean;
   prefferedLanguageIsoCodes: string[];
   prefferedLanguageIsoCode: string;
   allLanguages: Languages;
@@ -28,6 +29,7 @@ export class LanguagesComponent {
     private languageService: LanguageService
     ) 
     {
+      this.isLoading = true;
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
@@ -45,9 +47,16 @@ export class LanguagesComponent {
               break;
             }
           }
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
+          
         },
         error: err => {
           console.error(err);
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
         }
       });
   }
