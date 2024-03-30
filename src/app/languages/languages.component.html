@@ -1,1 +1,23 @@
-<p>languages works!</p>
+<p>Languages I know</p>
+@for(isoCode of prefferedLanguageIsoCodes; track isoCode;let idx = $index)
+{
+    <div>
+        {{ allLanguages[isoCode]?.displayName || isoCode }}
+        <button (click)="moveLanguage(isoCode, idx - 1)">Move Up</button>
+        <button (click)="moveLanguage(isoCode, idx + 1)">Move Down</button>
+        <button (click)="deleteLanguage(isoCode)">Delete</button>
+    </div>
+}  
+
+<p>Add a language</p>
+<select #selectedLanguage>
+    @for(isoCode of languageIsoCodesNotInPreferred; track isoCode)
+    {
+        <div>
+            {{ allLanguages[isoCode]?.displayName || isoCode }}
+        </div>
+    }  
+</select>
+<button (click)="addLanguage(selectedLanguage.value)">Add Language</button>
+
+

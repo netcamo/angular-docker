@@ -18,8 +18,11 @@ export class AppComponent {
     private deviceSettingsService: DeviceSettingsService
     ) 
     {
-      if (this.deviceSettingsService.getPrefferedLanguageIsoCodes().length == 0) {
-        this.router.navigate(['/languages']); // Navigate to /languages if production is true
-      }
+      setTimeout(() => {
+          if (this.deviceSettingsService.getPrefferedLanguageIsoCodes().length == 0) {
+              this.router.navigate(['/languages']); // Navigate to /languages if production is true
+          }
+      }, 1000);
+      
   }
 }
