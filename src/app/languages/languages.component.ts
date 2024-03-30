@@ -4,11 +4,16 @@ import { DeviceSettingsService } from '../settings/device-settings.service';
 import { LanguageService } from './language.service';
 import { Languages } from './language.model';
 import { CommonModule } from '@angular/common';
+import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-languages',
   standalone: true,
-  imports: [CommonModule],
+  imports: 
+  [
+    CommonModule,
+    DragDropModule
+  ],
   templateUrl: './languages.component.html',
   styleUrl: './languages.component.css'
 })
@@ -78,7 +83,11 @@ export class LanguagesComponent {
       this.savePrefferedLanguageIsoCodes();
     }
   }
-  
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.prefferedLanguageIsoCodes, event.previousIndex, event.currentIndex);
+    this.savePrefferedLanguageIsoCodes();
+  }
 
   get languageIsoCodesNotInPreferred(): string[] {
     return Object.keys(this.allLanguages).filter(

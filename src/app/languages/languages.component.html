@@ -1,6 +1,6 @@
-<div [hidden]="prefferedLanguageIsoCodes.length === 0">
+<div [hidden]="prefferedLanguageIsoCodes.length === 0" cdkDropList (cdkDropListDropped)="drop($event)">
     <p>Languages I know</p>
-    <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last">
+    <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag>
         {{ allLanguages[isoCode]?.displayName || isoCode }}
         <button [hidden]="first" (click)="moveLanguage(isoCode, i - 1)">Move Up</button>
         <button [hidden]="last" (click)="moveLanguage(isoCode, i + 1)">Move Down</button>
