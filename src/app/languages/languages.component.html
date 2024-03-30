@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
-        <p>Do you know any more languages?</p>
+        <p>Can you read any more languages?</p>
         <select #selectedLanguage>
             <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
                 [value]="isoCode">
