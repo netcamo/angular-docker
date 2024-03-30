@@ -1,5 +1,5 @@
 <div class="container" [hidden]="prefferedLanguageIsoCodes.length === 0" cdkDropList (cdkDropListDropped)="drop($event)">
-    <p>Languages I know</p>
+    <p>Sort and add the Languages you can read, in order of preference:</p>
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
         <span>{{ allLanguages[isoCode]?.displayName || isoCode }}</span>
         <div>
@@ -16,4 +16,7 @@
         </select>
         <button (click)="addLanguage(selectedLanguage.value)">Add</button>
     </div>
+</div>
+<div class="next-screen">
+    <button (click)="goToNextScreen()">Next</button>
 </div>

@@ -1,5 +1,4 @@
 /* languages.component.css */
-
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -33,8 +32,6 @@ body {
     background-color: #f0f0f0;
 }
 
-
-
 p {
     font-size: 18px;
     color: #333;
@@ -63,14 +60,15 @@ select {
     font-size: 16px;
 }
 
-
-
 .add-language {
     width: 50%; /* Adjust as needed */
-    position: absolute;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.next-screen {
+    position: fixed;
     right: 0;
     bottom: 0;
     padding: 20px;
-    box-sizing: border-box;
-    margin-left: auto; /* Push the add-language div to the right */
 }

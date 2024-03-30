@@ -99,4 +99,8 @@ export class LanguagesComponent {
       });
     }
   }
+
+  goToNextScreen(): void {
+    this.router.navigate(['/']); // Navigate to /languages if production is true
+  }
 }
