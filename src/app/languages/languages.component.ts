@@ -75,6 +75,7 @@ export class LanguagesComponent {
     if (isoCode && this.prefferedLanguageIsoCodes.includes(isoCode)) {
       this.prefferedLanguageIsoCodes = this.prefferedLanguageIsoCodes.filter(item => item !== isoCode);
       this.savePrefferedLanguageIsoCodes();
+      this.selectedLanguageValue = "";
     }
   }
 
