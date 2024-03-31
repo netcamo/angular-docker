@@ -6,7 +6,7 @@
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
         <span>{{ allLanguages[isoCode]?.displayName || isoCode }}</span>
         <div>
-            <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)">Delete</button>
+            <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)"><i class="fas fa-trash"></i></button>
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
