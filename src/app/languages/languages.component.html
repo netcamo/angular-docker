@@ -2,7 +2,7 @@
     <img src='/assets/loading.svg'>
 </div>
 <div class="container" *ngIf="!isLoading && prefferedLanguageIsoCodes.length !== 0" cdkDropList (cdkDropListDropped)="drop($event)">
-    <p>Sort and add the languages you can read, in order of preference:</p>
+    <p>{{sortLanguagesPromptValue}}</p>
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
         <span [ngStyle]="{'font-weight': allLanguages[isoCode]?.isSupported ? 'bold' : 'normal', 'font-style': allLanguages[isoCode]?.isSupported ? 'normal' : 'italic'}">
             {{ allLanguages[isoCode]?.displayName || isoCode }}
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
-        <p>Choose all the languages that you prefer from the dropdown below?</p>
+        <p>{{choosePreferredLanguagesPromptValue}}</p>
         <div class="dropdown-button-container">
             <select #selectedLanguage [(ngModel)]="selectedLanguageValue">
                 <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 

@@ -6,6 +6,8 @@ import { Languages } from './language.model';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
+import { TranslationService } from '../translations/translation.service';
+
 
 @Component({
   selector: 'app-languages',
@@ -25,18 +27,24 @@ export class LanguagesComponent {
   prefferedLanguageIsoCode: string;
   allLanguages: Languages;
   selectedLanguageValue: string;
+  sortLanguagesPromptValue: string;
+  choosePreferredLanguagesPromptValue: string;
 
   constructor(
     private router: Router,
     private deviceSettingsService: DeviceSettingsService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private translationService: TranslationService
     ) 
     {
       this.isLoading = true;
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
+      this.translationService.loadTranslations(this.supportedLanguageIsoCode());
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
       this.selectedLanguageValue = "";
+      this.sortLanguagesPromptValue = this.translationService.getTranslation("SortLanguagesPrompt");
+      this.choosePreferredLanguagesPromptValue = this.translationService.getTranslation("ChoosePreferredLanguagesPrompt");
 
       this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
         next: response => {
@@ -49,6 +57,7 @@ export class LanguagesComponent {
               // Add the ISO code to the beginning of the prefferedLanguageIsoCodes array
               this.prefferedLanguageIsoCodes.unshift(isoCode);
               this.savePrefferedLanguageIsoCodes();
+              this.loadTranslations();
               break;
             }
           }
@@ -94,9 +103,18 @@ export class LanguagesComponent {
       isoCode => !this.prefferedLanguageIsoCodes.includes(isoCode)
     );
   }
+
+  loadTranslations(): void {
+    this.translationService.loadTranslations(this.supportedLanguageIsoCode()).subscribe(() => {
+      this.sortLanguagesPromptValue = this.translationService.getTranslation("SortLanguagesPrompt");
+      this.choosePreferredLanguagesPromptValue = this.translationService.getTranslation("ChoosePreferredLanguagesPrompt");
+    });
+  }
   
   savePrefferedLanguageIsoCodes(): void {
     this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
+    this.loadTranslations();
+
     if(this.prefferedLanguageIsoCode !== this.prefferedLanguageIsoCodes[0])
     {
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0]
@@ -109,6 +127,12 @@ export class LanguagesComponent {
         }
       });
     }
+  }
+
+  supportedLanguageIsoCode(): string {
+    return this.prefferedLanguageIsoCodes.find(languageIsoCode => 
+        (this.allLanguages && this.allLanguages[languageIsoCode]?.isSupported)
+    ) || "en";
   }
 
   goToNextScreen(): void {
