@@ -5,6 +5,7 @@ import { LanguageService } from './language.service';
 import { Languages } from './language.model';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-languages',
@@ -12,7 +13,8 @@ import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-
   imports: 
   [
     CommonModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   templateUrl: './languages.component.html',
   styleUrl: './languages.component.css'
@@ -22,6 +24,7 @@ export class LanguagesComponent {
   prefferedLanguageIsoCodes: string[];
   prefferedLanguageIsoCode: string;
   allLanguages: Languages;
+  selectedLanguageValue: string;
 
   constructor(
     private router: Router,
@@ -33,6 +36,8 @@ export class LanguagesComponent {
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
+      this.selectedLanguageValue = "";
+
       this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
         next: response => {
           this.allLanguages = response; // Store the response here

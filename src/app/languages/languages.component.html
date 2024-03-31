@@ -10,15 +10,18 @@
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
-        <p>Can you read any more languages?</p>
-        <select #selectedLanguage>
-            <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
-                [value]="isoCode">
-            {{ allLanguages[isoCode]?.displayName || isoCode }}
-            </option>
-        </select>
-        <button (click)="addLanguage(selectedLanguage.value)">Add</button>
+        <p>Choose all the languages that you prefer from the dropdown below?</p>
+        <div class="dropdown-button-container">
+            <select #selectedLanguage [(ngModel)]="selectedLanguageValue">
+                <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
+                    [value]="isoCode">
+                {{ allLanguages[isoCode]?.displayName || isoCode }}
+                </option>
+            </select>
+            <button [hidden]="!languageIsoCodesNotInPreferred.includes(selectedLanguageValue)" (click)="addLanguage(selectedLanguageValue)">Add {{allLanguages[selectedLanguageValue]?.displayName}}</button>
+        </div>
     </div>
+    
 </div>
 <div class="next-screen" *ngIf="!isLoading && prefferedLanguageIsoCodes.length !== 0">
     <button (click)="goToNextScreen()">Next</button>
