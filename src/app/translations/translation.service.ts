@@ -24,7 +24,6 @@ export class TranslationService {
 
   getTranslation(key: string): string {
     const translations: Dictionary = JSON.parse(localStorage.getItem('translations') || '{}');
-    console.log(translations[key]);
     return translations[key] || key;
   }
 }
