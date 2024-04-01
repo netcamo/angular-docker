@@ -12,9 +12,9 @@
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
-        <p>{{choosePreferredLanguagesPromptValue}}</p>
         <div class="dropdown-button-container">
             <select #selectedLanguage [(ngModel)]="selectedLanguageValue">
+                <option [value]="''">{{choosePreferredLanguagesPromptValue}}</option>
                 <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
                     [value]="isoCode">
                 {{ allLanguages[isoCode]?.displayName || isoCode }}

@@ -112,6 +112,7 @@ export class LanguagesComponent {
   }
   
   savePrefferedLanguageIsoCodes(): void {
+    this.selectedLanguageValue = "";
     this.deviceSettingsService.savePrefferedLanguageIsoCodes(this.prefferedLanguageIsoCodes);
     this.loadTranslations();
 
