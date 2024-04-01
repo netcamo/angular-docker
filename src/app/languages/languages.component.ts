@@ -43,7 +43,6 @@ export class LanguagesComponent {
       this.sortLanguagesPromptValue = "";
       this.choosePreferredLanguagesPromptValue = "";
       this.nextButtonText = "";
-      this.loadTranslations();
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
       this.selectedLanguageValue = "";
@@ -60,10 +59,10 @@ export class LanguagesComponent {
               // Add the ISO code to the beginning of the prefferedLanguageIsoCodes array
               this.prefferedLanguageIsoCodes.unshift(isoCode);
               this.savePrefferedLanguageIsoCodes();
-              this.loadTranslations();
               break;
             }
           }
+          this.loadTranslations();
           this.isLoading = false;
           
         },
