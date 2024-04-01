@@ -9,13 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class TranslationService {
   private apiUrl = `${environment.apiUrl}/v1/translations`;
+  private TRANSLATIONS_KEY = 'translations';
 
   constructor(private http: HttpClient) { }
 
   loadTranslations(isoCode: string): Observable<Dictionary> {
     return new Observable(observer => {
       this.http.get<Dictionary>(`${this.apiUrl}/${isoCode}`).subscribe((response: Dictionary) => {
-        localStorage.setItem('translations', JSON.stringify(response));
+        localStorage.setItem(this.TRANSLATIONS_KEY, JSON.stringify(response));
         observer.next(response);
         observer.complete();
       });
@@ -23,7 +24,7 @@ export class TranslationService {
   }
 
   getTranslation(key: string): string {
-    const translations: Dictionary = JSON.parse(localStorage.getItem('translations') || '{}');
+    const translations: Dictionary = JSON.parse(localStorage.getItem(this.TRANSLATIONS_KEY) || '{}');
     return translations[key] || key;
   }
 }
