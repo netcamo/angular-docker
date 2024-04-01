@@ -29,6 +29,7 @@ export class LanguagesComponent {
   selectedLanguageValue: string;
   sortLanguagesPromptValue: string;
   choosePreferredLanguagesPromptValue: string;
+  nextButtonText: string;
 
   constructor(
     private router: Router,
@@ -39,12 +40,14 @@ export class LanguagesComponent {
     {
       this.isLoading = true;
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
-      this.translationService.loadTranslations(this.supportedLanguageIsoCode());
+      this.sortLanguagesPromptValue = "";
+      this.choosePreferredLanguagesPromptValue = "";
+      this.nextButtonText = "";
+      this.loadTranslations();
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
       this.selectedLanguageValue = "";
-      this.sortLanguagesPromptValue = this.translationService.getTranslation("SortLanguagesPrompt");
-      this.choosePreferredLanguagesPromptValue = this.translationService.getTranslation("ChoosePreferredLanguagesPrompt");
+      
 
       this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
         next: response => {
@@ -108,6 +111,7 @@ export class LanguagesComponent {
     this.translationService.loadTranslations(this.supportedLanguageIsoCode()).subscribe(() => {
       this.sortLanguagesPromptValue = this.translationService.getTranslation("SortLanguagesPrompt");
       this.choosePreferredLanguagesPromptValue = this.translationService.getTranslation("ChoosePreferredLanguagesPrompt");
+      this.nextButtonText = this.translationService.getTranslation("NextButtonText");
     });
   }
   
