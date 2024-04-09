@@ -4,7 +4,7 @@
 <div class="container" *ngIf="!isLoading && prefferedLanguageIsoCodes.length !== 0" cdkDropList (cdkDropListDropped)="drop($event)">
     <p>{{sortLanguagesPromptValue}}</p>
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
-        <span [ngStyle]="{'font-weight': allLanguages[isoCode]?.isSupported ? 'bold' : 'normal', 'font-style': allLanguages[isoCode]?.isSupported ? 'normal' : 'italic'}">
+        <span>
             {{ allLanguages[isoCode]?.displayName || isoCode }}
         </span>
         <div>

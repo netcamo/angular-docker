@@ -91,8 +91,8 @@ export class LanguagesComponent {
   }
 
   hideFromDeletion(isoCode: string): boolean {
-    var remainingLanguageIsoCodes = this.prefferedLanguageIsoCodes.filter(item => item !== isoCode);
-    return remainingLanguageIsoCodes.every(languageIsoCode => !this.allLanguages[languageIsoCode]?.isSupported);
+    //var remainingLanguageIsoCodes = this.prefferedLanguageIsoCodes.filter(item => item !== isoCode);
+    return this.prefferedLanguageIsoCodes.length <= 1;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -134,9 +134,7 @@ export class LanguagesComponent {
   }
 
   supportedLanguageIsoCode(): string {
-    return this.prefferedLanguageIsoCodes.find(languageIsoCode => 
-        (this.allLanguages && this.allLanguages[languageIsoCode]?.isSupported)
-    ) || "en";
+    return this.prefferedLanguageIsoCodes[0] || "en";
   }
 
   goToNextScreen(): void {
