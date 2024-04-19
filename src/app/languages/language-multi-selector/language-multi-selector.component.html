@@ -3,22 +3,24 @@
 <div class="modal">
     <div class="modal-content">
       <div class="modal-header">
+        <div class="search-bar">
+          <input [(ngModel)]="searchFilter" placeholder="Search">
+        </div>
         <button (click)="closeModal()"><i class="fas fa-close"></i></button>
       </div>
-        <div class="search-bar">
-            <input [(ngModel)]="searchFilter" placeholder="Search">
+      <div class="modal-body">
+        <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
+            <label>
+                <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> 
+                {{ allLanguages[isoCode]?.displayName || isoCode }}
+            </label>
         </div>
-        <div class="modal-body">
-          <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
-              <label>
-                  <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> 
-                  {{ allLanguages[isoCode]?.displayName || isoCode }}
-              </label>
-          </div>
       </div>
-      
-      <div class="modal-footer" *ngIf="selectedLanguageIsoCodes.length > 0">
-        <button class="save-languages" (click)="saveLanguages()">Add {{selectedLanguagesDisplayNamesCommaSeparated}}</button>
+      <div class="modal-footer">
+        <div class="search-bar">
+          <input [(ngModel)]="searchFilter" placeholder="Search">
+        </div>
+        <button class="save-languages" *ngIf="selectedLanguageIsoCodes.length > 0" (click)="saveLanguages()">Add {{selectedLanguagesDisplayNamesCommaSeparated}}</button>
       </div>
     </div>
   </div>
