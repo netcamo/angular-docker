@@ -1,0 +1,21 @@
+<!-- language-multi-selector.component.html -->
+
+<div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Choose more</h2>
+        <button (click)="closeModal()">Close</button>
+      </div>
+        <div class="search-bar">
+            <input [(ngModel)]="searchFilter" placeholder="Search...">
+        </div>
+        <div class="modal-body">
+            <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
+                <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> {{ allLanguages[isoCode]?.displayName || isoCode }}
+            </div>
+        </div>
+      <div class="modal-footer">
+        <button class="save-languages" (click)="saveLanguages()">Save</button>
+      </div>
+    </div>
+  </div>
