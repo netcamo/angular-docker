@@ -18,7 +18,7 @@
           </div>
       </div>
       
-      <div class="modal-footer">
+      <div class="modal-footer" *ngIf="selectedLanguageIsoCodes.length > 0">
         <button class="save-languages" (click)="saveLanguages()">Add {{selectedLanguagesDisplayNamesCommaSeparated}}</button>
       </div>
     </div>
