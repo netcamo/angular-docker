@@ -1,0 +1,64 @@
+/* language-multi-selector.component.css */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-header, .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-bar {
+    padding: 10px;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    flex-grow: 1; /* This will make the modal body take up the remaining space */
+  }
+
+  .save-languages {
+    width: 50%; /* Adjust as needed */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+button {
+    margin: 0 5px; /* Add horizontal margin to buttons */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceSettingsService } from '../settings/device-settings.service';
 import { LanguageService } from './language.service';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../translations/translation.service';
+import { LanguageMultiSelectorComponent } from './language-multi-selector/language-multi-selector.component';
 
 
 @Component({
@@ -16,12 +17,19 @@ import { TranslationService } from '../translations/translation.service';
   [
     CommonModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    LanguageMultiSelectorComponent
   ],
   templateUrl: './languages.component.html',
   styleUrl: './languages.component.css'
 })
-export class LanguagesComponent {
+export class LanguagesComponent implements AfterViewInit{
+  @ViewChild(LanguageMultiSelectorComponent) languageMultiSelector! : LanguageMultiSelectorComponent;
+
+  ngAfterViewInit() {
+    console.log('LanguageComponent ngAfterViewInit');
+  }
+
   isLoading: boolean;
   prefferedLanguageIsoCodes: string[];
   prefferedLanguageIsoCode: string;
@@ -30,6 +38,7 @@ export class LanguagesComponent {
   sortLanguagesPromptValue: string;
   choosePreferredLanguagesPromptValue: string;
   nextButtonText: string;
+  isLanguageMultiSelectorModalOpen: boolean = false;
 
   constructor(
     private router: Router,
@@ -38,6 +47,7 @@ export class LanguagesComponent {
     private translationService: TranslationService
     ) 
     {
+      console.log('LanguageComponent constructor');
       this.isLoading = true;
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
       this.sortLanguagesPromptValue = "";
@@ -139,5 +149,18 @@ export class LanguagesComponent {
 
   goToNextScreen(): void {
     this.router.navigate(['/']); // Navigate to /languages if production is true
+  }
+
+  openLanguageMultiSelectorModal(): void {
+    this.isLanguageMultiSelectorModalOpen = true;
+  }
+  closeLanguageMultiSelectorModal(): void {
+    this.isLanguageMultiSelectorModalOpen = false;
+  }
+
+  updateprefferedLanguageIsoCodes(selected: string[]): void { 
+    this.prefferedLanguageIsoCodes = Array.from(new Set([...this.prefferedLanguageIsoCodes, ...selected]));
+    this.savePrefferedLanguageIsoCodes(); 
+    this.closeLanguageMultiSelectorModal(); 
   }
 }

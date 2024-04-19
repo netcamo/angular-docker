@@ -12,16 +12,15 @@
         </div>
     </div>
     <div class="add-language" [hidden]="languageIsoCodesNotInPreferred.length === 0">
-        <div class="dropdown-button-container">
-            <select #selectedLanguage [(ngModel)]="selectedLanguageValue">
-                <option [value]="''">{{choosePreferredLanguagesPromptValue}}</option>
-                <option *ngFor="let isoCode of languageIsoCodesNotInPreferred" 
-                    [value]="isoCode">
-                {{ allLanguages[isoCode]?.displayName || isoCode }}
-                </option>
-            </select>
-            <button [hidden]="!languageIsoCodesNotInPreferred.includes(selectedLanguageValue)" (click)="addLanguage(selectedLanguageValue)">Add {{allLanguages[selectedLanguageValue]?.displayName}}</button>
-        </div>
+        <!-- Add More button -->
+        <button (click)="openLanguageMultiSelectorModal()">{{choosePreferredLanguagesPromptValue}}</button>
+
+        <!-- Language Multi Selector Component -->
+        <app-language-multi-selector [hidden]="!isLanguageMultiSelectorModalOpen"
+                                [allLanguages]="allLanguages"
+                                [languageIsoCodesNotInPreferred]="languageIsoCodesNotInPreferred" 
+                                (save)="updateprefferedLanguageIsoCodes($event)" 
+                                (close)="closeLanguageMultiSelectorModal()">
+        </app-language-multi-selector>
     </div>
-    
 </div>
