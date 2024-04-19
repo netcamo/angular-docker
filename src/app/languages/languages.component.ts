@@ -27,7 +27,6 @@ export class LanguagesComponent implements AfterViewInit{
   @ViewChild(LanguageMultiSelectorComponent) languageMultiSelector! : LanguageMultiSelectorComponent;
 
   ngAfterViewInit() {
-    console.log('LanguageComponent ngAfterViewInit');
   }
 
   isLoading: boolean;
@@ -47,7 +46,6 @@ export class LanguagesComponent implements AfterViewInit{
     private translationService: TranslationService
     ) 
     {
-      console.log('LanguageComponent constructor');
       this.isLoading = true;
       this.prefferedLanguageIsoCodes = this.deviceSettingsService.getPrefferedLanguageIsoCodes();
       this.sortLanguagesPromptValue = "";
