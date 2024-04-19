@@ -46,13 +46,16 @@ export class LanguageMultiSelectorComponent {
   }
 
   closeModal() {
-    this.save.emit([]);
-    this.searchFilter = '';
-    this.selectedLanguages = {};
+    this.resetAndEmit(true);
   }
 
   saveLanguages() {
-    this.save.emit(this.selectedLanguageIsoCodes);
+    this.resetAndEmit(false);
+  }
+
+  private resetAndEmit(closeOnly: boolean) {
+    this.save.emit(closeOnly ? [] : this.selectedLanguageIsoCodes);
+    this.searchFilter = '';
     this.selectedLanguages = {};
   }
 }
