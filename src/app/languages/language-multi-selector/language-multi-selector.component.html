@@ -3,11 +3,10 @@
 <div class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Choose more</h2>
-        <button (click)="closeModal()">Close</button>
+        <button (click)="closeModal()"><i class="fas fa-close"></i></button>
       </div>
         <div class="search-bar">
-            <input [(ngModel)]="searchFilter" placeholder="Search...">
+            <input [(ngModel)]="searchFilter" placeholder="Search">
         </div>
         <div class="modal-body">
           <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">

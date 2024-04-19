@@ -47,6 +47,7 @@ export class LanguageMultiSelectorComponent {
 
   closeModal() {
     this.save.emit([]);
+    this.searchFilter = '';
     this.selectedLanguages = {};
   }
 
