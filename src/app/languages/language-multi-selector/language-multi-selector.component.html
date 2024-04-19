@@ -10,12 +10,16 @@
             <input [(ngModel)]="searchFilter" placeholder="Search...">
         </div>
         <div class="modal-body">
-            <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
-                <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> {{ allLanguages[isoCode]?.displayName || isoCode }}
-            </div>
-        </div>
+          <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
+              <label>
+                  <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> 
+                  {{ allLanguages[isoCode]?.displayName || isoCode }}
+              </label>
+          </div>
+      </div>
+      
       <div class="modal-footer">
-        <button class="save-languages" (click)="saveLanguages()">Save</button>
+        <button class="save-languages" (click)="saveLanguages()">Add {{selectedLanguagesDisplayNamesCommaSeparated}}</button>
       </div>
     </div>
   </div>

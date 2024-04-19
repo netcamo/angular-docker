@@ -23,11 +23,7 @@ export class LanguageMultiSelectorComponent {
   searchFilter: string = '';
   selectedLanguages: { [key: string]: boolean } = {};
 
-  constructor() {
-    console.log('LanguageMultiSelectorComponent constructor');
-  }
-
-  
+    
   get filteredLanguageIsoCodesNotInPreferred(): string[] {
     if (!this.searchFilter) {
       return this.languageIsoCodesNotInPreferred;
@@ -41,14 +37,21 @@ export class LanguageMultiSelectorComponent {
     );
   }
 
+  get selectedLanguagesDisplayNamesCommaSeparated(): string {
+    return this.selectedLanguageIsoCodes.map(isoCode => this.allLanguages[isoCode]?.displayName || isoCode).join(', ');
+  }
+
+  get selectedLanguageIsoCodes(): string[] {
+    return Object.keys(this.selectedLanguages).filter(isoCode => this.selectedLanguages[isoCode]);
+  }
+
   closeModal() {
     this.save.emit([]);
     this.selectedLanguages = {};
   }
 
   saveLanguages() {
-    const selected = Object.keys(this.selectedLanguages).filter(isoCode => this.selectedLanguages[isoCode]);
-    this.save.emit(selected);
+    this.save.emit(this.selectedLanguageIsoCodes);
     this.selectedLanguages = {};
   }
 }
