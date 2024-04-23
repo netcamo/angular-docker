@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:5245'
+    apiUrl: 'https://funwithapis-4kbqnvs2ha-uc.a.run.app'
   };
