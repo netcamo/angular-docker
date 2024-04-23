@@ -12,7 +12,7 @@
         <div *ngFor="let isoCode of filteredLanguageIsoCodesNotInPreferred">
             <label>
                 <input type="checkbox" [(ngModel)]="selectedLanguages[isoCode]"> 
-                {{ allLanguages[isoCode]?.displayName || isoCode }}
+                {{ getDisplayName(isoCode) }}
             </label>
         </div>
       </div>

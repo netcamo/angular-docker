@@ -4,9 +4,12 @@
 <div class="container" *ngIf="!isLoading && prefferedLanguageIsoCodes.length !== 0" cdkDropList (cdkDropListDropped)="drop($event)">
     <p>{{sortLanguagesPromptValue}}</p>
     <div *ngFor="let isoCode of prefferedLanguageIsoCodes; let i = index; let first = first; let last = last" cdkDrag class="draggable-item">
-        <span>
-            {{ allLanguages[isoCode]?.displayName || isoCode }}
-        </span>
+        <select [(ngModel)]="prefferedLanguageIsoCodes[i]" (change)="onLocaleChange($event, isoCode)">
+            <option *ngFor="let languageIsoCodeWithLocale of getKeys(allLanguages[getLanguageId(isoCode)].languageIsoCodesWithLocales)" 
+                    [value]="languageIsoCodeWithLocale">
+                {{displayLanguageName(isoCode, languageIsoCodeWithLocale)}}
+            </option>
+        </select>
         <div>
             <button [hidden]="hideFromDeletion(isoCode)" (click)="deleteLanguage(isoCode)"><i class="fas fa-trash"></i></button>
         </div>

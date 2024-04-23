@@ -32,17 +32,22 @@ export class LanguageMultiSelectorComponent {
     const lowerCaseFilter = this.searchFilter.toLowerCase();
   
     return this.languageIsoCodesNotInPreferred.filter(languageIsoCode =>
-      this.allLanguages[languageIsoCode]?.displayName?.toLowerCase()?.includes(lowerCaseFilter) ||
+      this.getDisplayName(languageIsoCode).toLowerCase()?.includes(lowerCaseFilter) ||
       languageIsoCode?.toLowerCase()?.includes(lowerCaseFilter)
     );
   }
 
   get selectedLanguagesDisplayNamesCommaSeparated(): string {
-    return this.selectedLanguageIsoCodes.map(isoCode => this.allLanguages[isoCode]?.displayName || isoCode).join(', ');
+    return this.selectedLanguageIsoCodes.map(isoCode => this.getDisplayName(isoCode)).join(', ');
   }
 
   get selectedLanguageIsoCodes(): string[] {
     return Object.keys(this.selectedLanguages).filter(isoCode => this.selectedLanguages[isoCode]);
+  }
+
+  getDisplayName(isoCode: string): string {
+    var langaugeId = isoCode.split('-')[0];
+    return this.allLanguages[langaugeId]?.languageIsoCodesWithLocales[langaugeId];
   }
 
   closeModal() {

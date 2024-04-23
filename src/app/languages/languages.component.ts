@@ -54,7 +54,6 @@ export class LanguagesComponent implements AfterViewInit{
       this.allLanguages = {};
       this.prefferedLanguageIsoCode = this.prefferedLanguageIsoCodes[0];
       this.selectedLanguageValue = "";
-      
 
       this.languageService.getLanguages(this.prefferedLanguageIsoCode).subscribe({
         next: response => {
@@ -63,7 +62,7 @@ export class LanguagesComponent implements AfterViewInit{
           // Iterate over the keys (ISO codes) of the allLanguages object
           for (let isoCode in this.allLanguages) {
             // If the language is selected and it's not already in the prefferedLanguageIsoCodes array
-            if (this.allLanguages[isoCode].isSelected && !this.prefferedLanguageIsoCodes.includes(isoCode)) {
+            if (this.allLanguages[isoCode].isSelected && !this.prefferedLanguageIsoCodes.some(code => code.startsWith(isoCode))) {
               // Add the ISO code to the beginning of the prefferedLanguageIsoCodes array
               this.prefferedLanguageIsoCodes.unshift(isoCode);
               this.savePrefferedLanguageIsoCodes();
@@ -79,6 +78,24 @@ export class LanguagesComponent implements AfterViewInit{
           this.isLoading = false;
         }
       });
+  }
+
+  getLanguageId(isoCode: string): string {
+    return isoCode.split("-")[0];
+  }
+
+  getKeys(obj: Record<string, string>): string[] {
+    return Object.keys(obj);
+  }
+  
+  displayLanguageName(isoCode: string, languageIsoCodeWithLocale: string): string { 
+    return this.allLanguages[this.getLanguageId(isoCode)].languageIsoCodesWithLocales[languageIsoCodeWithLocale];
+  }
+
+  onLocaleChange(event: Event, isoCode: string): void {
+    const target = event.target as HTMLSelectElement;
+    this.prefferedLanguageIsoCodes = this.prefferedLanguageIsoCodes.map(code => code === isoCode ? target.value : code);
+    this.savePrefferedLanguageIsoCodes();
   }
 
   addLanguage(isoCode: string) {
@@ -108,9 +125,12 @@ export class LanguagesComponent implements AfterViewInit{
     this.savePrefferedLanguageIsoCodes();
   }
 
+
   get languageIsoCodesNotInPreferred(): string[] {
     return Object.keys(this.allLanguages).filter(
-      isoCode => !this.prefferedLanguageIsoCodes.includes(isoCode)
+      isoCode => !this.prefferedLanguageIsoCodes.some(
+        preferredIsoCode => preferredIsoCode.startsWith(isoCode)
+      )
     );
   }
 
