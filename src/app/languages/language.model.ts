@@ -1,7 +1,7 @@
 // language.model.ts
 export interface Language {
     isSelected: boolean;
-    displayName: string;
+    languageIsoCodesWithLocales: Record<string, string>;
   }
   
   export interface Languages {
