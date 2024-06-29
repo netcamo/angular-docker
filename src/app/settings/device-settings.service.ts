@@ -6,7 +6,15 @@ import { Injectable } from '@angular/core';
 export class DeviceSettingsService {
   private SETTINGS_KEY = 'deviceSettings';
 
-  constructor() { }
+  constructor() { 
+    window.addEventListener('storage', this.handleStorageEvent);
+  }
+
+  private handleStorageEvent = (event: StorageEvent) => {
+    if (event.key === this.SETTINGS_KEY) {
+      location.reload();
+    }
+  };
   
   private getSettings(): any {
     return JSON.parse(localStorage.getItem(this.SETTINGS_KEY) || "{}");
